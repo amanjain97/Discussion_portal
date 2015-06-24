@@ -1,0 +1,156 @@
+if (Meteor.isClient) {
+  // counter starts at 0
+  Session.setDefault('counter', 0);
+
+  Template.hello.helpers({
+    counter: function () {
+      return Session.get('counter');
+    }
+  });
+
+  Template.hello.events({
+    'click button': function () {
+      // increment the counter when button is clicked
+      Session.set('counter', Session.get('counter') + 1);
+    }
+  });
+}
+
+if (Meteor.isServer) {
+  Meteor.startup(function () {
+    // code to run on server at startup
+  });
+}
+
+
+
+<head>
+  <title>demo</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+
+  {{> hello}}
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Schemas = {};
+
+//FormData.attachSchema = new SimpleSchema({
+Schemas.answerData = new SimpleSchema({
+  proposedTerm: {
+    type: String
+  },
+
+  value: {
+    type: Number
+  },
+
+  Example: {
+    type: Array,
+    optional: true
+  },
+  'Example.$': {
+    type: String
+  },
+
+  Reference: {
+    type: Array,
+    optional: true
+  },
+  'Reference.$': {
+    type: String
+  },
+
+  Comment: {
+    type: String,
+    optional: true
+  }
+
+  // 'contacts.$.name': {
+  //   type: String
+  // }
+  // createdBy: {
+  //   type: String
+  // },
+
+  // createdAt: {  
+  //   type: Date,
+  //     autoValue: function() {
+  //       if (this.isInsert) {
+  //         return new Date();
+  //       } else if (this.isUpsert) {
+  //         return {$setOnInsert: new Date()};
+  //       } else {
+  //         this.unset();
+  //       }
+  //     }
+  // },
+  
+  // updatedAt: {
+  //   type: Date,
+  //   autoValue: function() {
+  //     if (this.isUpdate) {
+  //       return new Date();
+  //     }
+  //   },
+  //   denyInsert: true,
+  //   optional: true
+  // }
+});
+  
+AnswerData.attachSchema(Schemas.answerData);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class = 'header'><!-- add this to the  top --> 
+    <div id = "header-left">Project</div><!-- this is at the left side of the header and the project name-->
+    <div id = "header-right">{{> loginButtons}}</div><!-- this is at the right side of the header and the login button -->
+  </div>
+  <div class="mainfooter">
+        <span id="span1">
+            Follow us on:
+            <a href="https://www.facebook.com/" target="_blank">
+                <img src="http://static.viewbook.com/images/social_icons/facebook_32.png" />
+            </a>
+            <a href="https://twitter.com/" target="_blank">
+                <img src="http://static.viewbook.com/images/social_icons/twitter_32.png" />
+            </a>
+
+            <a href="https://www.google.co.in/?gws_rd=ssl" target="_blank">
+                <img src="http://static.viewbook.com/images/social_icons/google_32.png" />
+            </a>
+        </span>
+    </div>

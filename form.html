@@ -1,0 +1,319 @@
+<head>
+   <title>Project</title>
+</head>
+<body>
+   <!-- {{> updateBookForm}} -->
+   <!-- <button class="btn waves-effect waves-light">hello</button> -->
+   <button type="button" class="btn btn-primary" data-style="toast" data-content="This is a toast! Lorem lipsum dolor sit amet..." data-toggle="snackbar" data-timeout="0">Show toastgggg</button>
+   <div class="navbar navbar-inverse">
+      <div class="container">
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{pathFor 'mainPageListing'}}">ProZect</a>
+         </div>
+         <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+               <li><a href="{{pathFor 'mainPageListing'}}" style="padding-top:20px;">Terms</a></li>
+               <li><a href="{{pathFor 'Contact'}}" style="padding-top:20px;">Contact me</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+               <li>{{> loginButtons}}</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+</body>
+<template name = "formTemplate" style="overflow:hidden;">
+   <div class = "ques-form" style="
+      float: left;
+      margin-top: 20px;
+      ">
+      {{#if currentUser}}
+      <div class = "cssApplied">
+         {{#autoForm collection="FormData" id="insertForm" type="insert"}}
+         <fieldset>
+            {{> afQuickField name='term'}}
+            {{> afQuickField name='sourceLanguage' options="allowed"}}
+            {{> afQuickField name='targetLanguage' options="allowed"}}
+            {{> afQuickField name='fieldOfExpertise' options="allowed"}}
+            {{> afQuickField name='Example'}}
+            {{> afQuickField name='Reference'}}
+            {{> afQuickField name='Comment' rows=6}}
+         </fieldset>
+         <button type = "submit" class="btn btn-primary goBack">Submit</button>
+         {{/autoForm}}
+      </div>
+      {{/if}}
+   </div>
+</template>
+<template name = "mainPageListing">
+   <div id = "wrapper">
+      {{#if currentUser}}
+      <div class = "post-question">
+         <a href="{{pathFor 'formTemplate'}}" ><button type = "button" style="text-decoration:none;color:white;" class="btn btn-primary">Post a Question</button></a>
+      </div>
+      {{/if}}
+      <br>
+      <div id = "qmini-list">
+         {{#each termsPrint}}
+         <div class = "qlist">
+            <div class = "question-class">
+               <h3><a href = "{{pathFor 'test'  _id = this._id}}" class = "views-clicks">{{term}}</a></h3>
+               <div class = "lang">
+                  <div class = "sourceLanguage">{{sourceLanguage}}</div>
+                  <div class = "to">to</div>
+                  <div class = "targetLanguage">{{targetLanguage}}</div>
+               </div>
+            </div>
+            <div class = "counts-votes-views">
+               <div class = "votes">
+                  <div class = "votes-count">{{votes}}</div>
+                  <div>Votes</div>
+               </div>
+               <div class = "views">
+                  <div class = "views-count">{{clicks}}</div>
+                  <div>Views</div>
+               </div>
+            </div>
+            <div class="container">
+               <div class="category">
+                  {{fieldOfExpertise}}
+               </div>
+            </div>
+         </div>
+         {{/each}} 
+      </div>
+   </div>
+</template>
+<template name ="test">
+   <div class = "ques-ans-div" style = "margin:0 5% 0 5%">
+      {{#if checkUser}}
+      <div>
+         <a href="{{pathFor 'mainPageListing'}}"><button class="btn waves-effect waves-light btn-primary deleteQues">Delete</button></a>
+         <!-- <a class="btn waves-effect waves-light">Delete</a> -->
+
+      </div>
+      <div style="float: right;margin-right: 10px;">
+         <a href="{{pathFor 'updateQuesForm'}}"><button class="btn btn-primary Edit">Edit</button></a>
+      </div>
+      {{/if}}
+      {{#with test1}}
+      <div>
+         <div class="wrapper-ques-list">
+            <div class="jumbotron">
+               <div class="heading">
+                  <h3 style="margin-left:5%;display:inline;">{{term}}</h3>
+                  &ensp;&ensp;&ensp;
+                  <h5 class="sourceLanguage">{{sourceLanguage}}</h5>
+                  <div class="to">to</div>
+                  <h5 class="targetLanguage">{{targetLanguage}}</h5>
+               </div>
+               <div class="left" style="
+                  font-size: 17px;    font-weight: 300;    color: #777;
+                  ">
+                  {{#if currentUser}}
+                  <div class = "upvote-button" style="padding:5px 0;"></div>
+                  {{/if}}
+                  <div style="margin: 6px 0 6px 0;">{{votes}}</div>
+                  {{#if currentUser}}
+                  <div class = "downvote-button" style="padding:5px 0;"></div>
+                  {{/if}}
+               </div>
+               <div class="right">
+                  <div style="padding:5px 0;">
+                     <h5>Field of Expertise</h5>
+                     <ol style = "margin:0 0 7px 45px;" class="sourceLanguage">
+                        {{fieldOfExpertise}}
+                     </ol>
+                     <!-- {{fieldOfExpertise}} -->
+                  </div>
+                  {{#if Example}}
+                  <div style="padding:5px 0;">
+                     <h5>Example(s)</h5>
+                  </div>
+                  {{/if}}
+                  <ol style = "margin:0 0 7px 45px;">
+                     {{#each Example}}
+                     <li>{{this}}</li>
+                     {{/each}}
+                  </ol>
+                  {{#if Reference}}
+                  <div style="padding:5px 0;">
+                     <h5>Reference(s)</h5>
+                  </div>
+                  {{/if}}
+                  <ol style = "margin:0 0 7px 45px;">
+                     {{#each Reference}}
+                     <li><a href="{{this}}">{{this}}</a></li>
+                     {{/each}}
+                  </ol>
+                  {{#if Comment}}
+                  <div style="float:left;padding:5px 0;">
+                     <h5>Comment</h5>
+                     <ol style = "margin:0 0 7px 45px;">
+                        {{Comment}}
+                     </ol>
+                  </div>
+                  {{/if}}
+               </div>
+            </div>
+         </div>
+      </div>
+      {{/with}}
+      <br><br><br>
+      <div style="border-top:2px solid black;float:left; width:100%;margin-top:10px;"  class="wrapper-ques-list">
+         <div class="heading" style="margin-top:30px;">
+            <h3 style="margin-left:8%"> {{number_of_answers}} Answers </h3>
+         </div>
+         {{#if currentUser}}
+         <div class = "post-an-answer" style="float: right;margin: 20px 0px 20px 0;"><button class="btn btn-primary"><a href="{{pathFor 'answerForm'}}" style="text-decoration:none;color:white;">Answer this question</a></button></div>
+         {{/if}}
+         {{#each ansPrint}}
+         <div class = "answer-list" style="width:100%;float:left;margin-bottom:30px">
+            <div class="jumbotron">
+               <div class="left" style="float:left;font-size: 17px;    font-weight: 300;color: #777;">
+                  <div>
+                     {{#if currentUser}}
+                     <div class = "ans-upvote-button" style="padding:5px 0;"></div>
+                     {{/if}}
+                     <div style="padding:5px 0;">{{votes}}</div>
+                     {{#if currentUser}}
+                     <div class = "ans-downvote-button" style="padding:5px 0;"></div>
+                     {{/if}}
+                     <!--   <hr> -->
+                     <div class = "votes" style="margin-top:15px;">
+                        <div class="progress">
+                           <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                              aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="10" style="width:{{value}}%">
+                              {{value}}% Complete (info)
+                           </div>
+                        </div>
+                        <div style="padding:5px 0;margin:0;">Confidence</div>
+                     </div>
+                  </div>
+               </div>
+               <div class="right">
+                  <div style="padding:5px 0;">
+                     <h5>Proposed Term</h5>
+                     <ol style = "margin:0 0 7px 45px;">
+                        {{proposedTerm}}
+                     </ol>
+                  </div>
+                  {{#if Example}}
+                  <div style="padding:5px 0;">
+                     <h5>Example(s):-</h5>
+                  </div>
+                  {{/if}}
+                  <ol style = "margin:0 0 7px 45px;">
+                     {{#each Example}}
+                     <li>{{this}}</li>
+                     {{/each}}
+                  </ol>
+                  {{#if Reference}}
+                  <div style="padding:5px 0;">
+                     <h5>Reference(s) :-</h5>
+                  </div>
+                  {{/if}}
+                  <ol style = "margin:0 0 7px 45px;">
+                     {{#each Reference}}
+                     <li><a href="{{this}}">{{this}}</a></li>
+                     {{/each}}
+                  </ol>
+                  {{#if Comment}}
+                  <div style="float:left;padding:5px 0;">
+                     <h5>Comment(s) :- </h5>
+                     <ol style = "margin:0 0 7px 45px;">
+                        {{Comment}}
+                     </ol>
+                  </div>
+                  {{/if}}
+               </div>
+               {{#if checkUserAns}}
+               <!-- <div>
+                  <button class="btn btn-primary deleteAns">Delete</button>
+               </div> -->
+               <div style="float: right;margin-right: 10px;">
+                  <button class="btn btn-primary deleteAns">Delete</button>
+                  <a href="{{pathFor 'updateAnsForm'}}"><button class="btn btn-primary Edit">Edit</button></a>
+               </div>
+               {{/if}}
+            </div>
+         </div>
+         {{/each}}
+      </div>
+   </div>
+</template>
+<template name = "answerForm">
+   <div class = "ans-form" style="float:left;margin-top:30px;">
+      <a href="{{pathFor 'test' _id = questionId}}" style="text-decoration:none; color:white;"><button style="float:right; margin-right:30px" class="btn btn-primary">Back to term</button></a>
+      {{#if currentUser}}
+      <div class = "cssApplied">
+         {{#autoForm collection="AnswerData" id="insert_Form" type="insert"}}
+         <fieldset>
+            {{> afQuickField name='proposedTerm'}}
+            {{> afQuickField name='value'}}
+            {{> afQuickField name='Example'}}
+            {{> afQuickField name='Reference'}}
+            {{> afQuickField name='Comment' rows=6}}
+         </fieldset>
+         <!--          <button type = "submit" class="btn btn-primary"><a href="{{pathFor 'test' _id = questionId}}" style="color:white!important; text-decoration:none;">Submit</a></button> -->
+         <button type = "submit" class=" btn btn-primary btn-raised goBack">Submit</button>
+         {{/autoForm}}
+      </div>
+      {{/if}} 
+   </div>
+</template>
+<template name = "ApplicationLayout">
+   <div class = "container">
+      {{> yield}}
+   </div>
+</template>
+<template name = "Contact">
+   <div class="container">
+      <div class="row">
+         <div class="map-container">
+            {{> googleMap name="exampleMap" options=exampleMapOptions}}
+         </div>
+      </div>
+   </div>
+   <div class="conatiner">
+      <div class="row">
+         <div class="col-md-6">
+            <a href="/images/aman.jpg" data-lightbox="/images/aman.jpg" data-title="My caption"><img src="/images/aman.jpg" style="height:250px!important;" class="img-responsive">   </a>
+            <!-- <a href="/images/aman.jpg" data-toggle="lightbox"> -->
+              <!-- <img src="/images/aman.jpg" style="height:250px!important;" class="img-responsive"> -->
+            <!-- </a> -->
+         </div>
+         <div class="col-md-6">
+            <div class="jumbotron">
+               <h5 style="display:inline!important;">Address : </h5>
+               <p>208,Prem Nagar</p>
+               <h5 style="display:inline!important;">City : </h5>
+               <p>Hisar</p>
+               <h5 style="display:inline!important;">Contact : </h5>
+               <p>8901530161</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</template>
+<template name="updateQuesForm">
+   {{#if currentUser}}
+   <a href="{{pathFor 'test' _id = qId}}" style="text-decoration:none; color:white;"><button style="float:right; margin-right:30px" class="btn btn-primary">Back to term</button></a>
+   <div class="cssApplied">
+      {{> quickForm collection="FormData" doc=this id="updateQuesForm" type="update" fields = "term , sourceLanguage , targetLanguage , fieldOfExpertise , Example , Reference , Comment"}}
+   </div>
+   {{/if}}
+</template>
+
+<template name="updateAnsForm">
+   {{#if currentUser}}
+   <a href="{{pathFor 'test' _id=qsId}}" style="text-decoration:none; color:white;"><button style="float:right; margin-right:30px" class="btn btn-primary">Back to term</button></a>
+   <div class="cssApplied">
+      {{> quickForm collection="AnswerData" doc=this id="updateAnsForm" type="update" fields = "proposedTerm , value , Example , Reference , Comment"}}
+   </div>
+   {{/if}}
+</template>
