@@ -94,11 +94,13 @@ AutoForm.hooks({
      // evt.preventDefault(); // add this to prevent the button from submitting
       // Router.go('signup', {name: '/signup'});
       console.log("this in go back from ans form is ", this)
+
       Router.go('test' , {
         // name: 'test',
         _id: this.id
       });
-
+            toastr.success('Answer submitted !!');
+      toastr.options.closeButton = true;
      }
   });
 
