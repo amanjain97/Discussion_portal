@@ -1,10 +1,5 @@
 // AnswerData = new Mongo.Collection('ans');
-var a= {
- "msTranslator": {
-    "id": "TA-123",
-    "secret": "5gTnLbeY7oQi2IaAvyWTNolghSLGJfy2A9u2PzW3uLo"
-  }
-}
+
 // console.log("awesome! this translator package is working", Microsoft.translate("awesome! this translator package is working","nl"))
 
 
