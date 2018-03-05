@@ -2,7 +2,7 @@
 It is a Question and Answer forum, a clone of Stack OverFlow.
 
 ## Installation
-For installation you need to have the meteor installed on your system. Run the git clone https://github.com/amanjain97/prozect.git command and the change the directory to prozect and the run the meteor command . 
+For installation you need to have the meteor installed on your system. Run the git clone https://github.com/amanjain97/Discussion_portal.git command and the change the directory to prozect and the run the meteor command . 
 
 ## Usage
 You can also change the scheme of the question and answer in QuestionSchema.js and AnswerSchema.js in the code respetively.
